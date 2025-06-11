@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Log</title>
+    <style>
+@font-face {
+    font-family: 'CustomFont';
+    src: url('/source/font/HelveticaLTStd-BlkObl.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CustomFont2';
+    src: url('/source/font/HelveticaLTStd-Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CustomFont3';
+    src: url('/source/font/HelveticaLTStd-Blk.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CustomFont4';
+    src: url('/source/font/YES24GothicR.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    width : 1400px;
+    margin: 0 auto;
+    background-color: #519BB6;
+        }
+#container{
+    position: absolute;
+    top:10%;
+}
+#top {
+    width:1400px;
+    margin-left:10%;
+    font-family:'CustomFont', sans-serif;
+    letter-spacing: -5px;
+    font-size: 8em;
+    color:black;
+}
+#bottom{ 
+    float:left; width:700px; 
+    font-family:'CustomFont', sans-serif;
+    letter-spacing: -1px;
+    font-size: 1.4em;
+    color:white;
+    margin-top:-37px;
+    margin-left:210px;
+    }
+
+.showbox{
+    /* 색상 및 크기 적용 */
+    width: 850px; height:450px;
+    background: white;
+
+    /*위치 설정*/
+    position:absolute;
+    left:30%; top:55%;
+    margin-left:-350px;
+    margin-top:-210px;
+    padding:11px 51px 31px 51px;
+    overflow-y:scroll;
+}
+
+.log-entry h1 {
+    font-family: 'CustomFont', sans-serif;
+    text-decoration : underline;
+    }
+
+.showbox p {
+    font-family: 'CustomFont2', sans-serif;
+    }
+
+.showbox h2{
+    font-family: 'CustomFont4', monospace;
+    line-height: 0.3em;
+}
+
+#menu {
+    width: 260px;
+    height: 260px;
+    position: absolute;
+    right: 17%;
+    bottom: 30%;
+    background-color: rgba(255, 255, 255, 0.456);
+    background-image: url('/source/image/menubg.jpg');
+    background-size: cover;
+    background-blend-mode: overlay;
+    font-family: 'CustomFont3', sans-serif;
+    font-size: 2em;
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid white;
+}
+
+#menu a {
+    color: white;
+    text-decoration: none;
+    letter-spacing: -1px;
+    display: block; 
+    width: 100%; 
+    text-align: center; 
+    margin: -15px 0;
+}
+
+@media (max-width: 800px) {
+    #top {
+        font-size: 6vw; 
+    }
+    .showbox {
+        height: 40vh; 
+    }
+    #menu {
+        font-size: 1.5em;
+        height: 25vh;
+    }
+}
+
+@media (max-width: 600px) {
+    #top {
+        font-size: 4vw; 
+    }
+    .showbox {
+        height: 30vh; 
+    }
+    #menu {
+        font-size: 1.2em;
+        height: 20vh;
+    }
+}
+
+@media (max-width: 400px) {
+    #top {
+        font-size: 3vw; 
+    }
+    .showbox {
+        height: 25vh; 
+    }
+    #menu {
+        font-size: 1em;
+        height: 15vh; 
+    }
+}
+
+    </style>
+     <script>
+        // 저장된 데이터 불러오기
+        document.addEventListener("DOMContentLoaded", function() {
+            let logContainer = document.getElementById("log-container");
+            
+            // localStorage에서 date와 comment 데이터를 가져옵니다.
+            let date = localStorage.getItem("date");
+            let comment = localStorage.getItem("comment");
+
+            // date와 comment가 모두 존재하면 화면에 표시합니다.
+            if (date && comment) {
+                let logEntry = document.createElement("div");
+                logEntry.innerHTML = `
+                    <h2>Date: ${date}</h2>
+                    <p>${comment}</p>
+                `;
+                logContainer.appendChild(logEntry);
+            } else {
+                logContainer.innerHTML = "<p>No study log entries yet.</p>";
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id ="container">
+        <div id ="top">Study Log</div>
+        <div id="bottom">What I studied today</div>
+    </div>
+    <div class="showbox" id="log-container">
+        <!-- 여기에 저장된 데이터가 자동으로 들어갈 공간입니다 -->
+    </div>
+    <div id="menu">
+        <a href="main.html">Main</a><br>
+        <a href="edit_mode.html">Edit Mode</a>
+    </div>
+    </body>
+</html>

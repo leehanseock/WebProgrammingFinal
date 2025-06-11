@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>untitled personal website_lhs</title>
+    <style>
+        @font-face {
+        font-family: 'CustomFont';
+        src: url('/source/font/HelveticaLTStd-BlkObl.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;}
+        @font-face {
+        font-family: 'CustomFont2';
+        src: url('/source/font/HelveticaLTStd-Blk.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        #container {
+            position: absolute;
+            bottom: 0;
+        }
+
+        body{
+            width : 1400px;
+            margin: 0 auto;
+        }
+        #middle{
+            float:none;
+            font-family:'CustomFont', sans-serif;
+            letter-spacing: -5px;
+            font-size: 8em;
+            color:white;
+            margin-bottom: -70px;
+        }
+
+        #left{ float:left; width:700px; 
+            font-family:'CustomFont2', sans-serif;
+            letter-spacing: -1px;
+            font-size: 1.5em;
+            color:white;
+            margin-top:40px;
+            margin-left:10px;
+        }
+        #right{float:right; width:700px;
+            font-family:'CustomFont', sans-serif;
+            letter-spacing: -5px;
+            font-size: 8em;
+            color:white;
+            margin-top:2px;
+        }
+
+        .button {
+            position:absolute;
+            right:15%;
+            bottom:50%;
+            font-family:'CustomFont2', sans-serif;
+            font-size: 2.4em;
+            text-align: center;
+            letter-spacing: -1px;
+            width:336px; height : 77px;
+            background-color: white;
+            border: 0.5px, solid, white;
+        }
+
+        .button > a{
+            line-height: 77px;
+            display:block;
+            text-decoration: none;
+            color: #5590A9;
+        }
+
+        .button2 {
+            position:absolute;
+            right:15%;
+            bottom:40%;
+            font-family:'CustomFont2', sans-serif;
+            font-size: 2.4em;
+            text-align: center;
+            letter-spacing: -1px;
+            width:336px; height : 77px;
+            background-color: white;
+            border: 0.5px, solid, white;
+        }
+
+        .button2 > a{
+            line-height: 77px;
+            display:block;
+            text-decoration: none;
+            color: #5590A9;
+        }
+
+        #video {
+    	position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        overflow: hidden;
+        transform: translate(-50%, -50%);
+    }
+    
+    #clock {
+            position : fixed;
+            top: -30px;
+            left: 0;
+            font-family:'CustomFont2', sans-serif;
+            letter-spacing: -1px;
+            /* font-size: 1em; */
+            color:white;
+    }
+    </style>
+     <script>
+        function intervalNow(){
+            let now = new Date();
+            let hours = String(now.getHours()).padStart(2, '0');
+            let minutes = String(now.getMinutes()).padStart(2, '0');
+            let seconds = String(now.getSeconds()).padStart(2, '0');
+            obj.innerHTML = `${hours}:${minutes}:${seconds}`;
+        }
+
+        let obj;
+        function makeClock(){
+            obj = document.getElementById("clock");
+            //setInterval 함수에서 메소드명만 쓴다 (주의)
+            setInterval(intervalNow,1000);
+        }
+    </script>
+</head>
+<body onload = "makeClock()">
+    <h1 id="clock"></h1>
+    <video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
+    	<source src="./source/image/underwater.mp4" type="video/mp4">
+    </video>
+    <div class="button">
+        <a href="study_log.html">study log</a>
+    </div>
+    <div class="button2">
+        <a href="edit_mode.html">edit</a>
+    </div>
+    <div id ="container">
+        <div id ="middle">untitled personal</div>
+        <div id="bottom">
+            <div id="left">I am a student, aspiring programmer,<br>
+                music lover, and pessimist <br>
+                who dreams of being an optimist</div>
+            <div id="right">website</div>
+        </div>
+    </div>
+</body>
+</html>
