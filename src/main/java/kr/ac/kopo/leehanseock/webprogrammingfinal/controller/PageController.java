@@ -20,4 +20,9 @@ public class PageController {
     public String editMode() {
         return "edit_mode";
     }
+
+    @GetMapping("/sign_in")
+    public String loginPage() {
+        return "sign_in"; // sign_in.html 템플릿 반환
+    }
 }

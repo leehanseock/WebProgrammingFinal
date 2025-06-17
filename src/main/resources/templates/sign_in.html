@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign In</title>
+    <style>
+        /* 1. 커스텀 폰트 로드 */
+        @font-face {
+            font-family: 'CustomFont'; /* HelveticaLTStd-BlkObl */
+            src: url('/source/font/HelveticaLTStd-BlkObl.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'CustomFont2'; /* HelveticaLTStd-Light */
+            src: url('/source/font/HelveticaLTStd-Light.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'CustomFont3'; /* HelveticaLTStd-Blk */
+            src: url('/source/font/HelveticaLTStd-Blk.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'CustomFont4'; /* YES24GothicR */
+            src: url('/source/font/YES24GothicR.ttf') format('truetype');
+        }
+
+        /* 2. Reset & 기본 설정 */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: #519BB6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'CustomFont2', sans-serif; /* 기본 텍스트는 Light */
+        }
+
+        /* 3. 상단 타이틀 */
+        h1.title {
+            position: absolute;
+            top: 8%;
+            font-size: 8em;
+            font-style: italic;
+            font-weight: normal;
+            color: #111;
+            letter-spacing: -5px;
+            font-family: 'CustomFont'; /* BoldOblique */
+        }
+
+        /* 4. 모달 박스 */
+        .modal {
+            position: relative;
+            width: 360px;
+            padding: 40px 30px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* 5. 본문 텍스트 */
+        .modal h2 {
+            font-size: 2em;
+            margin-bottom: 16px;
+            font-family: 'CustomFont3'; /* Bold */
+        }
+        .modal .desc {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            font-family: 'CustomFont4'; /* Gothic */
+        }
+
+        /* 6. 입력 필드 */
+        .modal input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            font-size: 1.1em;
+            padding: 8px 0;
+            margin-bottom: 24px;
+            color: #fff;
+            font-family: 'CustomFont2'; /* Light */
+        }
+        .modal input::placeholder {
+            color: rgba(255,255,255,0.8);
+            font-weight: bold;
+            font-family: 'CustomFont2';
+        }
+
+        /* 7. Continue 버튼 */
+        .modal button {
+            width: 100%;
+            padding: 12px 0;
+            background: transparent;
+            border: 1px solid #fff;
+            border-radius: 2px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            letter-spacing: -1px;
+            font-family: 'CustomFont3'; /* Bold */
+        }
+
+        /* 8. 반응형 (옵션) */
+        @media (max-width: 400px) {
+            h1.title { font-size: 4vw; top: 5%; }
+            .modal { width: 90%; padding: 20px; }
+            .modal h2  { font-size: 1.8em; }
+            .modal button { font-size: 1.2em; }
+        }
+    </style>
+</head>
+<body>
+<!-- 상단 타이틀 -->
+<h1 class="title">Sign in</h1>
+
+<!-- 모달(닫기 버튼 제거됨) -->
+<div class="modal">
+    <h2>sign in</h2>
+    <p class="desc">
+        edit mode에<br/>
+        접근하시려면<br/>
+        로그인하시기 바랍니다.
+    </p>
+    <form method="post" action="/login">
+        <input type="text" name="username" placeholder="id" required />
+        <input type="password" name="password" placeholder="password" required />
+        <button type="submit">continue</button>
+    </form>
+</div>
+</body>
+</html>
