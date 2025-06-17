@@ -25,7 +25,7 @@
         }
         @font-face {
             font-family: 'CustomFont4';
-            src: url('/source/font/HelveticaLTStd-Light.otf') format('opentype');
+            src: url('/source/font/Gamtan.ttf') format('opentype');
             font-weight: normal;
             font-style: normal;
         }
@@ -202,29 +202,34 @@
     <script>
         function saveData() {
             let password = document.getElementById("password-input").value;
-            let correctPassword = "1234"; // 올바른 비밀번호 설정
+            let correctPassword = "1234";
 
-            if (password === correctPassword) {
-                let date = document.getElementById("date-input").value;
-                let comment = document.querySelector("textarea[name='detail']").value;
-
-                if (date && comment) {
-                    let studyLog = {
-                        date: date,
-                        comment: comment
-                    };
-
-                    localStorage.setItem("date", date);
-                    localStorage.setItem("comment", comment);
-                    alert('작성 완료!');
-                } else {
-                    alert('날짜와 내용을 입력해주세요.');
-                }
-            } else {
+            if (password !== correctPassword) {
                 alert('비밀번호가 올바르지 않습니다.');
+                return;
             }
+
+            let date = document.getElementById("date-input").value;
+            let comment = document.querySelector("textarea[name='detail']").value;
+
+            if (!date || !comment) {
+                alert('날짜와 내용을 입력해주세요.');
+                return;
+            }
+
+            // 1. 로컬스토리지에서 기존 로그 배열 불러오기 (없으면 빈 배열)
+            let logs = JSON.parse(localStorage.getItem("studyLogs") || "[]");
+
+            // 2. 새 로그 추가
+            logs.push({ date: date, comment: comment });
+
+            // 3. 다시 저장
+            localStorage.setItem("studyLogs", JSON.stringify(logs));
+
+            alert('작성 완료!');
         }
     </script>
+
 </head>
 <body>
     <div id="container">

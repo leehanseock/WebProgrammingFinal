@@ -155,26 +155,28 @@ body{
 }
 
     </style>
-     <script>
-        // 저장된 데이터 불러오기
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             let logContainer = document.getElementById("log-container");
-            
-            // localStorage에서 date와 comment 데이터를 가져옵니다.
-            let date = localStorage.getItem("date");
-            let comment = localStorage.getItem("comment");
 
-            // date와 comment가 모두 존재하면 화면에 표시합니다.
-            if (date && comment) {
-                let logEntry = document.createElement("div");
-                logEntry.innerHTML = `
-                    <h2>Date: ${date}</h2>
-                    <p>${comment}</p>
-                `;
-                logContainer.appendChild(logEntry);
-            } else {
+            // 1. 배열로 꺼내거나, 없으면 빈 배열
+            let logs = JSON.parse(localStorage.getItem("studyLogs") || "[]");
+
+            // 2. 내용이 없으면 메시지
+            if (logs.length === 0) {
                 logContainer.innerHTML = "<p>No study log entries yet.</p>";
+                return;
             }
+
+            // 3. 배열 순회하며 누적 출력
+            logs.forEach(entry => {
+                let div = document.createElement("div");
+                div.innerHTML = `
+            <h2>Date: ${entry.date}</h2>
+            <p>${entry.comment}</p>
+        `;
+                logContainer.appendChild(div);
+            });
         });
     </script>
 </head>
