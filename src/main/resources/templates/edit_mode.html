@@ -237,21 +237,16 @@
         <div id="bottom">A space where I write down what I studied today</div>
     </div>
     <div class="showbox">
-        <form onsubmit="event.preventDefault(); saveData();">
-            <table> 
-                <tr>
-                    <td class="header">Date</td>
-                    <td class="header">Password</td>
-                </tr>
-                <tr>
-                    <td><input type="date" id="date-input" name="date-input"></td>
-                    <td><input type="password" id="password-input" name="password" placeholder="Enter password"></td>
-                </tr>
-                <tr><td class="header" colspan="2">Comment</td></tr>
-                <tr><td colspan="2"><textarea placeholder="What I studied today" name="detail"></textarea></td></tr>
-                <tr><td colspan="2"><input type="submit" value="Post"></td></tr>
-            </table>
+        <form th:action="@{/edit_mode}" method="post">
+            <label>날짜</label>
+            <input type="date" name="date" th:value="${studyLog.date}" required/>
+
+            <label>내용</label>
+            <textarea name="comment" rows="5" th:text="${studyLog.comment}"></textarea>
+
+            <button type="submit">저장</button>
         </form>
+
     </div>
     <div id="menu">
         <div class="button">

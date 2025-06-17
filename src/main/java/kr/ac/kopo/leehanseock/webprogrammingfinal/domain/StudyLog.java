@@ -15,7 +15,7 @@ public class StudyLog {
     private String comment;
 
     // JPA용 기본 생성자
-    protected StudyLog() {}
+    public StudyLog() {}
 
     public StudyLog(LocalDate date, String comment) {
         this.date = date;

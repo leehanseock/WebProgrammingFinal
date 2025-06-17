@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
 }
 @font-face {
     font-family: 'CustomFont4';
-    src: url('/source/font/YES24GothicR.ttf') format('opentype');
+    src: url('/source/font/Gamtan.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -155,46 +155,34 @@ body{
 }
 
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let logContainer = document.getElementById("log-container");
 
-            // 1. 배열로 꺼내거나, 없으면 빈 배열
-            let logs = JSON.parse(localStorage.getItem("studyLogs") || "[]");
-
-            // 2. 내용이 없으면 메시지
-            if (logs.length === 0) {
-                logContainer.innerHTML = "<p>No study log entries yet.</p>";
-                return;
-            }
-
-            // 3. 배열 순회하며 누적 출력
-            logs.forEach(entry => {
-                let div = document.createElement("div");
-                div.innerHTML = `
-            <h2>Date: ${entry.date}</h2>
-            <p>${entry.comment}</p>
-        `;
-                logContainer.appendChild(div);
-            });
-        });
-    </script>
 </head>
 <body>
-    <div id ="container">
-        <div id ="top">Study Log</div>
-        <div id="bottom">What I studied today</div>
+<div id="container">
+    <div id="top">Study Log</div>
+    <div id="bottom">What I studied today</div>
+</div>
+
+<div class="showbox">
+    <!-- 로그가 하나도 없을 때 -->
+    <div th:if="${#lists.isEmpty(logs)}">
+        <p style="color: gray; text-align: center;">아직 기록이 없습니다.</p>
     </div>
-    <div class="showbox" id="log-container">
-        <!-- 여기에 저장된 데이터가 자동으로 들어갈 공간입니다 -->
+    <!-- 로그가 있을 때마다 반복 출력 -->
+    <div th:each="log : ${logs}" class="log-entry">
+        <h2 th:text="${log.date}">2025-06-17</h2>
+        <p th:text="${log.comment}">여기에 학습 내용이 들어갑니다.</p>
+        <hr/>
     </div>
-    <div id="menu">
-        <div class="button">
-            <a href="/">Main</a><br>
-        </div>
-        <div class="button">
-            <a href="/edit_mode">study log</a>
-        </div>
+</div>
+
+<div id="menu">
+    <div class="button">
+        <a th:href="@{/}">Main</a><br>
     </div>
-    </body>
+    <div class="button">
+        <a th:href="@{/edit_mode}">study log</a>
+    </div>
+</div>
+</body>
 </html>
