@@ -188,6 +188,22 @@ body{
                       th:text="${item.content}"></span>
             </li>
         </ol>
+
+<!--        <li th:each="item : ${log.todayTasks}">-->
+<!--            <input type="checkbox" disabled th:checked="${item.checked}"/>-->
+<!--            <span th:classappend="${item.checked} ? 'checked-task' : ''"-->
+<!--                  th:text="${item.content}"></span>-->
+<!--            &lt;!&ndash; 디버깅: checked 값 확인용 &ndash;&gt;-->
+<!--            <span style="color:red;font-size:0.8em;">[checked: <span th:text="${item.checked}"></span>]</span>-->
+<!--        </li>-->
+
+        <form th:action="@{/edit_mode}" method="get" style="display:inline;">
+            <input type="hidden" name="id" th:value="${log.id}"/>
+            <button type="submit">수정</button>
+        </form>
+        <form th:action="@{/edit_mode}" method="get">
+            <button type="submit">새로운 할 일 추가</button>
+        </form>
         <hr/>
     </div>
 </div>

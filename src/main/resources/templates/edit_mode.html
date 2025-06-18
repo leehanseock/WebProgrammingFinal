@@ -238,24 +238,25 @@
     </div>
     <div class="showbox">
         <form th:action="@{/edit_mode}" method="post">
+            <input type="hidden" name="id" th:value="${studyLog.id}" />
+
             <label>날짜</label>
-            <input type="date" name="date" required th:value="${studyLog.date}"/>
+            <input type="date" name="date" th:value="${studyLog.date}" required/>
 
             <label>오늘 할 일</label>
             <div id="today-list">
-                <div>
-                    <input type="checkbox" name="todayChecked" value="true"/>
-                    <input type="text" name="todayContent" placeholder="할 일 입력"/>
+                <div th:each="item, iterStat : ${studyLog.todayTasks}">
+                    <input type="checkbox" name="todayChecked" th:value="${iterStat.index}" th:checked="${item.checked}" />
+                    <input type="text" name="todayContent" th:value="${item.content}" />
                 </div>
-                <!-- 추가 버튼 등 JS로 동적 생성 -->
             </div>
             <button type="button" onclick="addTodayTask()">+ 추가</button>
 
             <label>이번주 할 일 (번호순)</label>
             <div id="week-list">
-                <div>
-                    <input type="checkbox" name="weekChecked" value="0"/>
-                    <input type="text" name="weekContent" placeholder="할 일 입력"/>
+                <div th:each="item, iterStat : ${studyLog.weeklyTasks}">
+                    <input type="checkbox" name="weekChecked" th:value="${iterStat.index}" th:checked="${item.checked}"/>
+                    <input type="text" name="weekContent" th:value="${item.content}" />
                 </div>
             </div>
             <button type="button" onclick="addWeekTask()">+ 추가</button>
@@ -264,16 +265,23 @@
         </form>
         <script>
             function addTodayTask() {
+                const todayList = document.getElementById('today-list');
+                const idx = todayList.querySelectorAll('input[type="text"]').length;
                 const div = document.createElement('div');
-                div.innerHTML = '<input type="checkbox" name="todayChecked" value="true"/>' +
-                    '<input type="text" name="todayContent" placeholder="할 일 입력"/>';
-                document.getElementById('today-list').appendChild(div);
+                div.innerHTML =
+                    '<input type="checkbox" name="todayChecked" value="' + idx + '"/>' +
+                    '<input type="text" name="todayContent"/>';
+                todayList.appendChild(div);
             }
+
             function addWeekTask() {
+                const weekList = document.getElementById('week-list');
+                const idx = weekList.querySelectorAll('input[type="text"]').length;
                 const div = document.createElement('div');
-                div.innerHTML = '<input type="checkbox" name="weekChecked" value="true"/>' +
-                    '<input type="text" name="weekContent" placeholder="할 일 입력"/>';
-                document.getElementById('week-list').appendChild(div);
+                div.innerHTML =
+                    '<input type="checkbox" name="weekChecked" value="' + idx + '"/>' +
+                    '<input type="text" name="weekContent"/>';
+                weekList.appendChild(div);
             }
         </script>
 
