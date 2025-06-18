@@ -61,6 +61,7 @@ body{
     /* 색상 및 크기 적용 */
     width: 850px; height:450px;
     background: white;
+    font-family: CustomFont4;
 
     /*위치 설정*/
     position:absolute;
@@ -164,24 +165,46 @@ body{
 </div>
 
 <div class="showbox">
-    <!-- 로그가 하나도 없을 때 -->
     <div th:if="${#lists.isEmpty(logs)}">
         <p style="color: gray; text-align: center;">아직 기록이 없습니다.</p>
     </div>
-    <!-- 로그가 있을 때마다 반복 출력 -->
     <div th:each="log : ${logs}" class="log-entry">
-        <h2 th:text="${log.date}">2025-06-17</h2>
-        <p th:text="${log.comment}">여기에 학습 내용이 들어갑니다.</p>
+        <h2 th:text="${log.date}"></h2>
+
+        <b>오늘 할 일</b>
+        <ul>
+            <li th:each="item : ${log.todayTasks}">
+                <input type="checkbox" disabled th:checked="${item.checked}"/>
+                <span th:classappend="${item.checked} ? 'checked-task' : ''"
+                      th:text="${item.content}"></span>
+            </li>
+        </ul>
+
+        <b>이번주 할 일</b>
+        <ol>
+            <li th:each="item : ${log.weeklyTasks}">
+                <input type="checkbox" disabled th:checked="${item.checked}"/>
+                <span th:classappend="${item.checked} ? 'checked-task' : ''"
+                      th:text="${item.content}"></span>
+            </li>
+        </ol>
         <hr/>
     </div>
 </div>
+<style>
+    .checked-task {
+        text-decoration: underline;
+        color: #888;
+    }
+</style>
+
 
 <div id="menu">
     <div class="button">
         <a th:href="@{/}">Main</a><br>
     </div>
     <div class="button">
-        <a th:href="@{/edit_mode}">study log</a>
+        <a th:href="@{/edit_mode}">edit</a>
     </div>
 </div>
 </body>

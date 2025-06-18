@@ -239,13 +239,44 @@
     <div class="showbox">
         <form th:action="@{/edit_mode}" method="post">
             <label>날짜</label>
-            <input type="date" name="date" th:value="${studyLog.date}" required/>
+            <input type="date" name="date" required th:value="${studyLog.date}"/>
 
-            <label>내용</label>
-            <textarea name="comment" rows="5" th:text="${studyLog.comment}"></textarea>
+            <label>오늘 할 일</label>
+            <div id="today-list">
+                <div>
+                    <input type="checkbox" name="todayChecked" value="true"/>
+                    <input type="text" name="todayContent" placeholder="할 일 입력"/>
+                </div>
+                <!-- 추가 버튼 등 JS로 동적 생성 -->
+            </div>
+            <button type="button" onclick="addTodayTask()">+ 추가</button>
+
+            <label>이번주 할 일 (번호순)</label>
+            <div id="week-list">
+                <div>
+                    <input type="checkbox" name="weekChecked" value="0"/>
+                    <input type="text" name="weekContent" placeholder="할 일 입력"/>
+                </div>
+            </div>
+            <button type="button" onclick="addWeekTask()">+ 추가</button>
 
             <button type="submit">저장</button>
         </form>
+        <script>
+            function addTodayTask() {
+                const div = document.createElement('div');
+                div.innerHTML = '<input type="checkbox" name="todayChecked" value="true"/>' +
+                    '<input type="text" name="todayContent" placeholder="할 일 입력"/>';
+                document.getElementById('today-list').appendChild(div);
+            }
+            function addWeekTask() {
+                const div = document.createElement('div');
+                div.innerHTML = '<input type="checkbox" name="weekChecked" value="true"/>' +
+                    '<input type="text" name="weekContent" placeholder="할 일 입력"/>';
+                document.getElementById('week-list').appendChild(div);
+            }
+        </script>
+
 
     </div>
     <div id="menu">
