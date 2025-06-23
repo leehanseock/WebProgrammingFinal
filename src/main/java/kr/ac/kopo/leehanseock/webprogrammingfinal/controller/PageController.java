@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class PageController {
     }
 
     // ✅ [2번] 수정폼 띄우기 (id 파라미터로 기존데이터 조회)
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/edit_mode")
     public String showEditForm(@RequestParam(required = false) Long id, Model model) {
         if (id != null) {
@@ -35,6 +37,7 @@ public class PageController {
     }
 
     // ✅ [4번] 저장 (id 있으면 수정, 없으면 새로 생성)
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit_mode")
     public String saveLog(
             @RequestParam(required = false) Long id,
@@ -75,6 +78,7 @@ public class PageController {
         model.addAttribute("logs", repo.findAll());
         return "study_log";
     }
+
     @GetMapping("/")
     public String main() {
         return "main";

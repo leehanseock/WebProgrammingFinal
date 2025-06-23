@@ -33,6 +33,7 @@
             width: 1400px;
             margin: 0 auto;
             background-color: #519BB6;
+            font-family: 'CustomFont4';
         }
         #container {
             position: absolute;
@@ -137,8 +138,10 @@
             font-size: 2em;
         }
         input, textarea {
-            font-family: 'CustomFont2', sans-serif;
-            font-size: 1.1em;
+            font-family: 'CustomFont4', sans-serif;
+            font-size: 1em;
+            margin-bottom: 5px;
+
         }
         input[type="submit"] {
             width: 100px;
@@ -243,7 +246,7 @@
             <label>날짜</label>
             <input type="date" name="date" th:value="${studyLog.date}" required/>
 
-            <label>오늘 할 일</label>
+            <label style="display:block; margin-top:10px; margin-bottom:10px;">오늘 할 일</label>
             <div id="today-list">
                 <div th:each="item, iterStat : ${studyLog.todayTasks}">
                     <input type="checkbox" name="todayChecked" th:value="${iterStat.index}" th:checked="${item.checked}" />
@@ -252,7 +255,7 @@
             </div>
             <button type="button" onclick="addTodayTask()">+ 추가</button>
 
-            <label>이번주 할 일 (번호순)</label>
+            <label style="display:block; margin-top:10px; margin-bottom:10px;">이번주 목표</label>
             <div id="week-list">
                 <div th:each="item, iterStat : ${studyLog.weeklyTasks}">
                     <input type="checkbox" name="weekChecked" th:value="${iterStat.index}" th:checked="${item.checked}"/>
@@ -261,7 +264,10 @@
             </div>
             <button type="button" onclick="addWeekTask()">+ 추가</button>
 
-            <button type="submit">저장</button>
+            <!-- 저장 버튼을 다음줄 + 오른쪽 정렬로 -->
+            <div style="text-align: right; margin-top: 20px;">
+                <button type="submit">저장</button>
+            </div>
         </form>
         <script>
             function addTodayTask() {

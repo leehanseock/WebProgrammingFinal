@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,8 +48,8 @@ body{
     font-size: 8em;
     color:black;
 }
-#bottom{ 
-    float:left; width:700px; 
+#bottom{
+    float:left; width:700px;
     font-family:'CustomFont', sans-serif;
     letter-spacing: -1px;
     font-size: 1.4em;
@@ -85,6 +86,16 @@ body{
     font-family: 'CustomFont4', monospace;
     line-height: 0.3em;
 }
+.status{
+    font-family: 'CustomFont';
+    font-size: 1em;
+}
+
+.username{
+    font-family: 'CustomFont';
+    font-size: 1.2em;
+    color: #ffffff;
+}
 
 #menu {
     width: 260px;
@@ -98,7 +109,7 @@ body{
     background-blend-mode: overlay;
     font-family: 'CustomFont3', sans-serif;
     font-size: 2em;
-    text-align: center; 
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,18 +121,18 @@ body{
     color: white;
     text-decoration: none;
     letter-spacing: -1px;
-    display: block; 
-    width: 100%; 
-    text-align: center; 
+    display: block;
+    width: 100%;
+    text-align: center;
     margin: -15px 0;
 }
 
 @media (max-width: 800px) {
     #top {
-        font-size: 6vw; 
+        font-size: 6vw;
     }
     .showbox {
-        height: 40vh; 
+        height: 40vh;
     }
     #menu {
         font-size: 1.5em;
@@ -131,10 +142,10 @@ body{
 
 @media (max-width: 600px) {
     #top {
-        font-size: 4vw; 
+        font-size: 4vw;
     }
     .showbox {
-        height: 30vh; 
+        height: 30vh;
     }
     #menu {
         font-size: 1.2em;
@@ -144,14 +155,14 @@ body{
 
 @media (max-width: 400px) {
     #top {
-        font-size: 3vw; 
+        font-size: 3vw;
     }
     .showbox {
-        height: 25vh; 
+        height: 25vh;
     }
     #menu {
         font-size: 1em;
-        height: 15vh; 
+        height: 15vh;
     }
 }
 
@@ -162,6 +173,18 @@ body{
 <div id="container">
     <div id="top">Study Log</div>
     <div id="bottom">What I studied today</div>
+
+    <!-- 로그인 상태 표시 -->
+    <div class= "status" style="margin-top:10px;">
+        <div sec:authorize="isAuthenticated()">
+            <b>Online</b> <span class="username" sec:authentication="name"></span>
+            <a th:href="@{/logout}">sign out</a>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/sign_in}">sign in</a>
+        </div>
+    </div>
+
 </div>
 
 <div class="showbox">
@@ -197,13 +220,19 @@ body{
 <!--            <span style="color:red;font-size:0.8em;">[checked: <span th:text="${item.checked}"></span>]</span>-->
 <!--        </li>-->
 
-        <form th:action="@{/edit_mode}" method="get" style="display:inline;">
-            <input type="hidden" name="id" th:value="${log.id}"/>
-            <button type="submit">수정</button>
-        </form>
-        <form th:action="@{/edit_mode}" method="get">
-            <button type="submit">새로운 할 일 추가</button>
-        </form>
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/edit_mode}" method="get" style="display:inline;">
+                <input type="hidden" name="id" th:value="${log.id}"/>
+                <button type="submit">수정</button>
+            </form>
+        </div>
+        <!-- 로그인한 사용자만 보이게 -->
+        <div sec:authorize="isAuthenticated()">
+            <!-- 예시: 새로운 할 일 추가 버튼 -->
+            <form th:action="@{/edit_mode}" method="get">
+                <button type="submit">새로운 할 일 추가</button>
+            </form>
+        </div>
         <hr/>
     </div>
 </div>
